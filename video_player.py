@@ -60,7 +60,7 @@ class AccessibleVideoPlayer(MDApp):
 		if self.detector.head_tilt() == "Left":
 			self.player.volume = max(0, self.player.volume - 0.02)
 		elif self.detector.head_tilt() == "Right":
-			self.player.volume = min(self.player.volume + 0.02, 200)
+			self.player.volume = min(self.player.volume + 0.02, 100)
 
 		if self.detector.head_tilt() == "Center":
 			percentage = self.player.position / self.player.duration
@@ -70,3 +70,4 @@ class AccessibleVideoPlayer(MDApp):
 				self.player.seek(percentage + 0.01)
 
 AccessibleVideoPlayer().run()
+
