@@ -6,7 +6,7 @@ An assistive technology for users with motor impairments. The user can control t
 - KivyMD: for the ready-made video player
 - FFPyPlayer: for playing videos
 ```
-pip install mediapipe kivymd ffpyplayer
+pip install -r requirements.txt
 ```
 
 ## Usage
