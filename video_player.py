@@ -31,25 +31,22 @@ class AccessibleVideoPlayer(MDApp):
 		Window.bind(on_dropfile=lambda _, filename:
 			setattr(self.player, "source", filename.decode("utf-8"))
 		)
-		Window.bind(on_key_down=self.toggle_auto_control)
 		
 		Clock.schedule_interval(self.player_control, 1 / 10)
 		return self.player
 
-	# Toggle face detector pause/play with the spacebar
-	def toggle_auto_control(self, window, key, scancode, codepoint, modifier):
-		if key == ord(" "):
+	# Video player controls using face expressions
+	def player_control(self, _):
+		if self.detector.update_frame() is None:
+			return
+
+		if self.detector.mouth_open():
 			self.auto_control = not self.auto_control
 
 			if self.player.state == "play":
 				self.player.state = "pause"
 			elif self.player.state == "pause":
 				self.player.state = "play"
-
-	# Video player controls using face expressions
-	def player_control(self, _):
-		if self.detector.update_frame() is None:
-			return
 
 		if self.auto_control:
 			if self.detector.detect_face():
@@ -70,4 +67,3 @@ class AccessibleVideoPlayer(MDApp):
 				self.player.seek(percentage + 0.01)
 
 AccessibleVideoPlayer().run()
-
